@@ -1,17 +1,7 @@
 "use client";
 import React from "react";
 import Checkbox from "./CheckBox";
-
-const offers = [
-  { id: "Pool", label: "Pool" },
-  { id: "Sauna", label: "Sauna" },
-  { id: "Tv", label: "Tv" },
-  { id: "Air conditioning", label: "Air conditioning" },
-  { id: "Balcony", label: "Balcony" },
-  { id: "Parking", label: "Parking" },
-  { id: "Wifi", label: "Wifi" },
-  { id: "Beach access", label: "Beach access" },
-];
+import { offers } from "@/lib/data";
 
 interface OffersFieldProps {
   selectedOffers: string[];

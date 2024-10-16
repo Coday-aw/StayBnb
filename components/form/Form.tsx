@@ -4,7 +4,7 @@ import InputField from "./InputField";
 import TextareaField from "./TextareaField";
 import SelectField from "./SelectField";
 import Counter from "./Counter";
-import { locationOptions, categories } from "@/lib/data";
+import { categories } from "@/lib/data";
 import OffersField from "./OffersField";
 import Heading from "../Heading";
 import Button from "@/components/Button";
@@ -20,7 +20,8 @@ const Form: React.FC = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
   const [offers, setOffers] = useState<string[]>([]);
   const [guests, setGuests] = useState(0);
@@ -34,7 +35,7 @@ const Form: React.FC = () => {
       description,
       price: parseInt(price),
       image: image || "",
-      location: selectedLocation,
+      location: { country, city },
       category,
       offers,
       guests,
@@ -47,7 +48,8 @@ const Form: React.FC = () => {
       !description ||
       !price ||
       !image ||
-      !selectedLocation ||
+      !country ||
+      !city ||
       !category ||
       offers.length === 0 ||
       guests === 0 ||
@@ -78,7 +80,8 @@ const Form: React.FC = () => {
       setDescription("");
       setPrice("");
       setImage(null);
-      setSelectedLocation("");
+      setCountry("");
+      setCity("");
       setCategory("");
       setOffers([]);
       setGuests(0);
@@ -93,7 +96,7 @@ const Form: React.FC = () => {
     <div className="flex justify-center mx-5 sm:mx-10">
       <form
         onSubmit={handleSubmit}
-        className="w-[800px] mt-10 flex flex-col gap-5 mb-20 "
+        className="w-[800px] mt-10 flex flex-col gap-5 mb-20 mx-10 "
       >
         <Heading> Please describe your home as best as you can</Heading>
         <Toaster position="top-center" />
@@ -156,16 +159,30 @@ const Form: React.FC = () => {
           />
         </div>
         <Heading>Where is your home located?</Heading>
-        <SelectField
-          id="location"
-          label="Location"
-          options={locationOptions.map((loc) => ({
-            value: loc.country,
-            label: loc.country,
-          }))}
-          value={selectedLocation}
-          onChange={(e) => setSelectedLocation(e.target.value)}
-        />
+
+        <div className="flex gap-5">
+          <div className="flex-1">
+            <InputField
+              id="country"
+              label="Country"
+              type="text"
+              placeholder="Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+          </div>
+
+          <div className="flex-1">
+            <InputField
+              id="city"
+              label="City"
+              type="text"
+              placeholder="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+        </div>
         <Heading>What this place offers</Heading>
         <OffersField selectedOffers={offers} setSelectedOffers={setOffers} />
         <Button type={"submit"} width={50}>

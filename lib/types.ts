@@ -4,13 +4,15 @@ export type Home = {
     description: string;
     price: string;
     image: File | null;
-    location: string;
-    category: string; 
+    location: []
+    category: string;
     offers: string[];
     guests: number;
     rooms: number;
     bathrooms: number;
 }
+
+
 
 
  export interface InputFieldProps {
@@ -28,3 +30,5 @@ export type Home = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   
   }
+
+  

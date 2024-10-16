@@ -1,13 +1,5 @@
 import React from "react";
-
-interface InputFieldProps {
-  id: string;
-  label: string;
-  type: string;
-  value?: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { InputFieldProps } from "@/lib/types";
 
 const InputField: React.FC<InputFieldProps> = ({
   id,
@@ -26,7 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
       onChange={onChange}
       id={id}
       name={id}
-      value={typeof value === "undefined" ? "" : value}
+      value={value}
       className="border border-black w-full p-2 rounded-lg mt-1"
       placeholder={placeholder}
     />
