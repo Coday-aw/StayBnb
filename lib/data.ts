@@ -22,15 +22,27 @@ const categories = [
 ];
 
 const offers = [
-    { id: "Pool", label: "Pool" },
-    { id: "Sauna", label: "Sauna" },
-    { id: "Tv", label: "Tv" },
-    { id: "Air conditioning", label: "Air conditioning" },
-    { id: "Balcony", label: "Balcony" },
-    { id: "Parking", label: "Parking" },
-    { id: "Wifi", label: "Wifi" },
-    { id: "Beach access", label: "Beach access" },
-  ];
+    { id: "Pool", label: "🏊 Pool" },
+    { id: "Sauna", label: "🧖 Sauna" },
+    { id: "Tv", label: "📺 Tv" },
+    { id: "Air conditioning", label: "❄️ Air conditioning" },
+    { id: "Balcony", label: "🌅 Balcony" },
+    { id: "Parking", label: "🅿️ Parking" },
+    { id: "Wifi", label: "📶 Wifi" },
+    { id: "Beach access", label: "🏖️ Beach access" },
+    { id: "Gym", label: "🏋️ Gym" },
+    { id: "Hot tub", label: "🛁 Hot tub" },
+    { id: "Fireplace", label: "🔥 Fireplace" },
+    { id: "Washer", label: "🧺 Washer" },
+    { id: "Dryer", label: "🌀 Dryer" },
+    { id: "Dishwasher", label: "🍽️ Dishwasher" },
+    { id: "Pet friendly", label: "🐾 Pet friendly" },
+    { id: "Breakfast", label: "🍳 Breakfast" },
+    { id: "Workspace", label: "💼 Workspace" },
+    { id: "Elevator", label: "🛗 Elevator" },
+    { id: "Security", label: "🔒 Security" },
+    { id: "Garden", label: "🌳 Garden" },
+];
 
 
 

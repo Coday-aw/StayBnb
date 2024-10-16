@@ -1,7 +1,8 @@
 interface ButtonProps {
   children: React.ReactNode;
-  width: number;
+  width?: number;
   type?: "button" | "submit" | "reset";
+  classNmae?: string;
 }
 
 function Button({ children, width, type }: ButtonProps) {
