@@ -1,12 +1,5 @@
 import React from "react";
-
-interface SelectFieldProps {
-  id: string;
-  label: string;
-  value: string;
-  options: { value: string; label: string }[];
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+import { SelectFieldProps } from "@/lib/types";
 
 const SelectField: React.FC<SelectFieldProps> = ({
   id,

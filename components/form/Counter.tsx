@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
-interface CounterProps {
-  label: string;
-  value: number;
-  onChange: (count: number) => void;
-}
+import { CounterProps } from "@/lib/types";
 
 const Counter: React.FC<CounterProps> = ({ label, value, onChange }) => {
   const [count, setCount] = useState(0);

@@ -1,12 +1,5 @@
 import React from "react";
-
-interface TextareaFieldProps {
-  id: string;
-  label: string;
-  value: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+import { TextareaFieldProps } from "@/lib/types";
 
 const TextareaField: React.FC<TextareaFieldProps> = ({
   id,

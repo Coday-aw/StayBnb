@@ -1,12 +1,18 @@
 import Navbar from "@/components/Navbar/Navbar";
+import Container from "@/components/Container";
+import { Toaster } from "react-hot-toast";
+
+import HomeListing from "@/components/HomeListing";
 
 function Page() {
   return (
-    <div className="flex justify-center">
-      <div className="max-w-[1400px] w-full">
-        <Navbar />
+    <Container>
+      <Navbar />
+      <div>
+        <Toaster position="top-center" />
+        <HomeListing />
       </div>
-    </div>
+    </Container>
   );
 }
 export default Page;

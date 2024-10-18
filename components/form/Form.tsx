@@ -14,6 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImageField from "./ImageField";
 import { toast, Toaster } from "react-hot-toast";
+import { Home } from "@/lib/types";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -54,7 +55,7 @@ const Form: React.FC = () => {
       offers.length === 0 ||
       guests === 0 ||
       rooms === 0 ||
-      bathrooms === 0
+      bathrooms < 0
     ) {
       toast.error("Please fill in all fields");
       return;

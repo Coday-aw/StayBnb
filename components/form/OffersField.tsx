@@ -2,11 +2,7 @@
 import React from "react";
 import Checkbox from "./CheckBox";
 import { offers } from "@/lib/data";
-
-interface OffersFieldProps {
-  selectedOffers: string[];
-  setSelectedOffers: React.Dispatch<React.SetStateAction<string[]>>;
-}
+import { OffersFieldProps } from "@/lib/types";
 
 const OffersField: React.FC<OffersFieldProps> = ({
   selectedOffers,
@@ -31,7 +27,6 @@ const OffersField: React.FC<OffersFieldProps> = ({
             {offer.label}
           </label>
           <Checkbox
-            name={offer.id}
             id={offer.id}
             checked={selectedOffers.includes(offer.id)}
             onChange={() => handleCheckboxChange(offer.id)}
