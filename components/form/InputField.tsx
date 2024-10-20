@@ -10,7 +10,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
 }) => (
   <div>
-    <label htmlFor={id} className="block text-m font-semibold text-gray-700">
+    <label htmlFor={id} className="block text-m font-semibold ">
       {label}
     </label>
     <input
@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({
       id={id}
       name={id}
       value={value}
-      className="border border-black w-full p-2 rounded-lg mt-1"
+      className="border w-full p-2 rounded-lg mt-1"
       placeholder={placeholder}
     />
   </div>

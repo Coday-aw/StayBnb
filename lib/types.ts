@@ -13,12 +13,12 @@ export type Home = {
     bathrooms: number;
 }
 
+
+
 type Offer = {
     id: string;
     label: string;
 }
-
-
 
 export interface SelectFieldProps {
     id: string;

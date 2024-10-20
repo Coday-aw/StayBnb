@@ -10,7 +10,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ onChange }) => {
         type="file"
         onChange={onChange}
         name="image"
-        className=" p-2 w-full border rounded-lg border-black mt-1"
+        className=" p-2 w-full border rounded-lg mt-1"
       />
     </div>
   );

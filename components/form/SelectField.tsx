@@ -9,14 +9,14 @@ const SelectField: React.FC<SelectFieldProps> = ({
   onChange,
 }) => (
   <div>
-    <label htmlFor={id} className="block text-m font-semibold text-gray-700">
+    <label htmlFor={id} className="block text-m font-semibold">
       {label}
     </label>
     <select
       id={id}
       value={value}
       name={id}
-      className="border border-black w-full p-2 rounded-lg mt-1"
+      className="border w-full p-2 rounded-lg mt-1"
       onChange={onChange}
     >
       <option value="">Select a {label.toLowerCase()}</option>

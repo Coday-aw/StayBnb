@@ -14,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImageField from "./ImageField";
 import { toast, Toaster } from "react-hot-toast";
-import { Home } from "@/lib/types";
+import { useRouter } from "next/router";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -30,6 +30,7 @@ const Form: React.FC = () => {
   const [bathrooms, setBathrooms] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const router = useRouter();
     e.preventDefault();
     const newHome = {
       title,
@@ -73,6 +74,7 @@ const Form: React.FC = () => {
       console.log("Document written with ID: ", docRef.id);
       if (docRef.id) {
         toast.success("Home created successfully");
+        router.push("/");
       } else {
         toast.error("Failed to create home");
       }
@@ -90,6 +92,7 @@ const Form: React.FC = () => {
       setBathrooms(0);
     } catch (error) {
       console.log(error);
+      toast.error("Failed to create home");
     }
   };
 

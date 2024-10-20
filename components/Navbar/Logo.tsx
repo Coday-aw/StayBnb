@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link href="/" className="hidden sm:flex justify-center items-center">
       <div>
-        <PiWarehouseLight size={40} color="red" />
+        <PiWarehouseLight size={40} />
       </div>
       <p className="hidden lg:block font-bold text-[#FF385C]">StayBnb</p>
     </Link>

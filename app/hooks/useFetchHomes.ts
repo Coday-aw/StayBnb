@@ -15,8 +15,11 @@ useEffect(() => {
     const fetchHomes = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, 'homes'));
-            const fetchedHomes = querySnapshot.docs.map((doc) => doc.data() as Home);
-            setHomes(fetchedHomes);
+            const fetchedHomes = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              })) as Home[];
+            setHomes(fetchedHomes)
             console.log(fetchedHomes);
         } catch (error) {
             setError('Error fetching homes');

@@ -9,7 +9,7 @@ const TextareaField: React.FC<TextareaFieldProps> = ({
   onChange,
 }) => (
   <div>
-    <label htmlFor={id} className="block text-m font-semibold text-gray-700">
+    <label htmlFor={id} className="block text-m font-semibold">
       {label}
     </label>
     <textarea
@@ -17,7 +17,7 @@ const TextareaField: React.FC<TextareaFieldProps> = ({
       name={id}
       value={value}
       onChange={onChange}
-      className="border border-black w-full p-2 rounded-lg mt-1 h-52"
+      className="border w-full p-2 rounded-lg mt-1 h-52"
       placeholder={placeholder}
     ></textarea>
   </div>

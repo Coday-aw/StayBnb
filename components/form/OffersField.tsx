@@ -20,10 +20,7 @@ const OffersField: React.FC<OffersFieldProps> = ({
     <div className="border p-5 rounded-lg grid sm:grid-cols-3 md:grid-cols-4 grid-cols-2 gap-5 h-auto">
       {offers.map((offer) => (
         <div key={offer.id} className="flex justify-center items-center gap-1">
-          <label
-            htmlFor={offer.id}
-            className="block sm:text-m sm:font-bold text-gray-700"
-          >
+          <label htmlFor={offer.id} className="block sm:text-m sm:font-bold">
             {offer.label}
           </label>
           <Checkbox
