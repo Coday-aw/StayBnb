@@ -12,6 +12,7 @@ import { RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
+import { offersWithEmojis } from "@/lib/data";
 
 interface Params {
   id: string;
@@ -82,14 +83,25 @@ function DetailsPage({ params }: { params: Params }) {
             <p className="py-5">{home?.description}</p>
             <hr />
             <p>What this place offers</p>
-            <ul>
+            <ul className="grid grid-cols-2 lg:grid-cols-4  md:grid-cols-2 gap-1">
               {home?.offers.map((offer) => (
-                <li key={offer.id}>{offer.label}</li>
+                <li className="flex gap-1" key={offer}>
+                  {offersWithEmojis[offer]}
+                  <p>{offer}</p>
+                </li>
               ))}
             </ul>
           </div>
-          <div className="flex justify-center items-center">
-            <DateRange ranges={[bookingDate]} onChange={handleBookingDate} />
+          <div className="flex flex-col justify-center items-center sm:items-start p-2 gap-5 ">
+            <p>
+              {" "}
+              <span className="text-3xl font-bold">${home?.price}</span> /night
+            </p>
+            <DateRange
+              minDate={new Date()}
+              ranges={[bookingDate]}
+              onChange={handleBookingDate}
+            />
           </div>
         </div>
       </div>

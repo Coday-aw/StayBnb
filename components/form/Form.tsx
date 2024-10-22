@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import InputField from "./InputField";
 import TextareaField from "./TextareaField";
 import SelectField from "./SelectField";
@@ -8,18 +8,17 @@ import { categories } from "@/lib/data";
 import OffersField from "./OffersField";
 import Heading from "../Heading";
 import Button from "@/components/Button";
-import { useState } from "react";
 import { db, storage } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImageField from "./ImageField";
 import { toast, Toaster } from "react-hot-toast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
@@ -29,8 +28,9 @@ const Form: React.FC = () => {
   const [rooms, setRooms] = useState(0);
   const [bathrooms, setBathrooms] = useState(0);
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
-    const router = useRouter();
     e.preventDefault();
     const newHome = {
       title,
@@ -122,7 +122,7 @@ const Form: React.FC = () => {
         <InputField
           id="price"
           label="Price"
-          type="text"
+          type="number"
           placeholder="Price per night in USD"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
