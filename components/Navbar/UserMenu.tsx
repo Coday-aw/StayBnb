@@ -20,18 +20,19 @@ const UserMenu: React.FC<UserMenuProps> = ({ onClick, isOpen }) => {
 
   return (
     <div className="flex justify-center items-center gap-2 bg-">
-      <button onClick={onClick}>
-        {isOpen ? <IoClose size={30} /> : <IoMenu size={30} />}
-      </button>
       {isSignedIn ? (
-        <UserButton />
+        <>
+          <button onClick={onClick}>
+            {isOpen ? <IoClose size={30} /> : <IoMenu size={30} />}
+          </button>
+          <UserButton />
+          <ModeToggle />
+        </>
       ) : (
         <Link href="/sign-in">
           <FaRegCircleUser size={30} />
         </Link>
       )}
-
-      <ModeToggle />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Search from "./Search";
 import UserMenu from "./UserMenu";
 import { RxCross2 } from "react-icons/rx";
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,8 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const User = useAuth();
 
   const handleClickOutside = (e: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -31,6 +34,7 @@ const Navbar = () => {
         <div className="flex justify-between">
           <Logo />
           <Search />
+
           <UserMenu onClick={toggleMenu} isOpen={isOpen} />
           {isOpen && (
             <>

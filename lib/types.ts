@@ -7,18 +7,12 @@ export type Home = {
     image: File | null;
     location: {city: string; country: string};
     category: string;
-    offers: Offer[];
+    offers: string[];
     guests: number;
     rooms: number;
     bathrooms: number;
 }
 
-
-
-type Offer = {
-    id: string;
-    label: string;
-}
 
 export interface SelectFieldProps {
     id: string;
@@ -63,7 +57,7 @@ export interface OffersFieldProps {
   
     label: string;
   
-    type: string;
+    type: string 
   
     placeholder: string;
   
