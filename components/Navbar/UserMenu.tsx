@@ -1,40 +1,54 @@
-"use client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { IoMenu } from "react-icons/io5";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { UserButton, useUser } from "@clerk/nextjs";
-import Link from "next/link";
-import { IoClose } from "react-icons/io5";
+import { SignIn, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "../toggle-theme";
+import { FaSignInAlt } from "react-icons/fa";
+import Link from "next/link";
 
-interface UserMenuProps {
-  onClick: () => void;
-  isOpen: boolean;
-}
-
-const UserMenu: React.FC<UserMenuProps> = ({ onClick, isOpen }) => {
+const UserMenu = () => {
   const { isSignedIn, isLoaded } = useUser();
 
   if (!isLoaded) {
     return null;
   }
-
   return (
-    <div className="flex justify-center items-center gap-2 bg-">
+    <div className="flex justify-center items-center gap-2">
       {isSignedIn ? (
         <>
-          <button onClick={onClick}>
-            {isOpen ? <IoClose size={30} /> : <IoMenu size={30} />}
-          </button>
-          <UserButton />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <IoMenu size={30} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link href="/bookings">Bookings</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/create">Host StayBnb</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/favorits">Saved Homes</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <ModeToggle />
+          <UserButton />
         </>
       ) : (
         <Link href="/sign-in">
-          <FaRegCircleUser size={30} />
+          <FaSignInAlt size={25} />
         </Link>
       )}
     </div>
   );
 };
-
 export default UserMenu;

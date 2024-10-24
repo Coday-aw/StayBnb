@@ -1,6 +1,7 @@
 
 export type Home = {
     id: string;
+    creator: string;
     title: string;
     description: string;
     price: string;

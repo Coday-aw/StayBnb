@@ -12,7 +12,7 @@ import { RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { offersWithEmojis } from "@/lib/data";
+import { offers } from "@/lib/data";
 
 interface Params {
   id: string;
@@ -59,7 +59,7 @@ function DetailsPage({ params }: { params: Params }) {
     <Container>
       <Navbar />
       <Toaster position="top-center" />
-      <div className="flex flex-col gap-5 mt-5">
+      <div className="flex flex-col gap-5 mt-5 lg:p-10">
         <p className="text-3xl font-bold">
           {capitalizeFirstLetter(home?.title ?? "")}
         </p>
@@ -72,9 +72,9 @@ function DetailsPage({ params }: { params: Params }) {
             />
           )}
         </div>
-        <div className="flex gap-10 flex-col sm:flex-row">
-          <div>
-            <p>hosted by steve</p>
+        <div className="flex gap-10 flex-col md:flex-row">
+          <div className="flex-1">
+            <p>{home?.creator}</p>
             <p className="text-slate-400">
               {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
               Bathrooms
@@ -82,17 +82,19 @@ function DetailsPage({ params }: { params: Params }) {
             <hr className="mt-5" />
             <p className="py-5">{home?.description}</p>
             <hr />
-            <p>What this place offers</p>
-            <ul className="grid grid-cols-2 lg:grid-cols-4  md:grid-cols-2 gap-1">
+            <p className="sm:text-2xl lg:text-3xl font-bold mb-5 mt-10">
+              What this place offers
+            </p>
+            <ul className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 md:grid-cols-2 gap-1">
               {home?.offers.map((offer) => (
                 <li className="flex gap-1" key={offer}>
-                  {offersWithEmojis[offer]}
+                  {offers[offer]}
                   <p>{offer}</p>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="flex flex-col justify-center items-center sm:items-start p-2 gap-5 ">
+          <div className="flex flex-col justify-center items-center  p-2">
             <p>
               {" "}
               <span className="text-3xl font-bold">${home?.price}</span> /night

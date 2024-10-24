@@ -22,7 +22,7 @@ export const categories = [
 ];
 
 
-export const offersWithEmojis: { [key: string]: string } = {
+export const offers: { [key: string]: string } = {
     "Wi-Fi": "📶",
     "Kitchen": "🍽️",
     "Free parking": "🅿️",
