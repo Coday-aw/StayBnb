@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import TextareaField from "./TextareaField";
 import SelectField from "./SelectField";
@@ -14,7 +14,6 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import ImageField from "./ImageField";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 
 const Form: React.FC = () => {
@@ -29,20 +28,21 @@ const Form: React.FC = () => {
   const [guests, setGuests] = useState(0);
   const [rooms, setRooms] = useState(0);
   const [bathrooms, setBathrooms] = useState(0);
-  const [creator, setCreator] = useState("");
   const { user } = useUser();
-
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (user && user.fullName) {
-      setCreator(user.fullName);
+    if (!user) {
+      console.log("No user found");
+      toast.error("No user found");
+      return;
     }
+
     const newHome = {
       title,
-      creator,
+      creator: user.id,
       description,
       price: parseInt(price),
       image: image || "",
@@ -56,7 +56,6 @@ const Form: React.FC = () => {
 
     if (
       !title ||
-      !creator ||
       !description ||
       !price ||
       !image ||

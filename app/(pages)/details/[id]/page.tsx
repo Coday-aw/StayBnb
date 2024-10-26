@@ -2,7 +2,7 @@
 
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Home } from "@/lib/types";
@@ -13,6 +13,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { offers } from "@/lib/data";
+import Button from "@/components/Button";
 
 interface Params {
   id: string;
@@ -20,21 +21,44 @@ interface Params {
 
 function DetailsPage({ params }: { params: Params }) {
   const [home, setHome] = useState<Home | null>(null);
+  const [days, setDays] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [bookingDate, setBookingDate] = useState({
     startDate: new Date(),
     endDate: new Date(),
     key: "selection",
   });
 
-  const handleBookingDate = (ranges: RangeKeyDict) => {
+  const handleBookingDate = useCallback((ranges: RangeKeyDict) => {
     setBookingDate({
       startDate: ranges.selection.startDate || new Date(),
       endDate: ranges.selection.endDate || new Date(),
       key: "selection",
     });
-  };
+  }, []);
 
-  const fetchHome = async () => {
+  const calculateTotalDays = useCallback(() => {
+    const { startDate, endDate } = bookingDate;
+    if (!startDate || !endDate) return 0;
+    const totalDays = Math.floor(
+      (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
+    );
+    setDays(totalDays);
+    return totalDays;
+  }, [bookingDate]);
+
+  const calculateTotalPrice = useCallback(() => {
+    const totalDays = calculateTotalDays();
+    const pricePerNight = home?.price ?? 0;
+    const totalPrice = totalDays * Number(pricePerNight);
+    setTotalPrice(totalPrice);
+  }, [calculateTotalDays, home?.price]);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [bookingDate, home, calculateTotalPrice]);
+
+  const fetchHome = useCallback(async () => {
     try {
       const docRef = doc(db, "homes", params.id);
       const docSnap = await getDoc(docRef);
@@ -43,17 +67,17 @@ function DetailsPage({ params }: { params: Params }) {
         console.log("Document data:", docSnap.data());
         setHome(docSnap.data() as Home);
       } else {
-        toast.error("document not found");
+        toast.error("Document not found");
       }
     } catch (error) {
       toast.error("Error fetching home");
       console.error("Error fetching home", error);
     }
-  };
+  }, [params.id]);
 
   useEffect(() => {
     fetchHome();
-  }, [params.id]);
+  }, [params.id, fetchHome]);
 
   return (
     <Container>
@@ -74,7 +98,7 @@ function DetailsPage({ params }: { params: Params }) {
         </div>
         <div className="flex gap-10 flex-col md:flex-row">
           <div className="flex-1">
-            <p>{home?.creator}</p>
+            <p>Hosted by {home?.creator}</p>
             <p className="text-slate-400">
               {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
               Bathrooms
@@ -93,8 +117,10 @@ function DetailsPage({ params }: { params: Params }) {
                 </li>
               ))}
             </ul>
+            <div className=""></div>
           </div>
-          <div className="flex flex-col justify-center items-center  p-2">
+
+          <div className="flex flex-col justify-center items-center border p-2">
             <p>
               {" "}
               <span className="text-3xl font-bold">${home?.price}</span> /night
@@ -104,10 +130,19 @@ function DetailsPage({ params }: { params: Params }) {
               ranges={[bookingDate]}
               onChange={handleBookingDate}
             />
+            <Button width={20}>Reservera</Button>
+            <p>
+              {" "}
+              Nights: <span className="font-bold">{days}</span>
+            </p>
+            <p className="mt-5 text-2xl">
+              Total Price: <span className="font-bold">${totalPrice}</span>
+            </p>
           </div>
         </div>
       </div>
     </Container>
   );
 }
+
 export default DetailsPage;
