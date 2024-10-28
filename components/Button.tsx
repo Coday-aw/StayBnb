@@ -3,11 +3,13 @@ interface ButtonProps {
   width?: number;
   type?: "button" | "submit" | "reset";
   classNmae?: string;
+  onClick?: () => void;
 }
 
-function Button({ children, width, type }: ButtonProps) {
+function Button({ children, width, type, onClick }: ButtonProps) {
   return (
     <button
+      onClick={onClick}
       type={type}
       className="bg-[#FF385C] text-white rounded-lg p-2 font-bold"
       style={{ width: `${width}rem` }}

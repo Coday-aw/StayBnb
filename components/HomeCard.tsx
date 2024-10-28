@@ -88,7 +88,7 @@ const HomeCard: React.FC<HomeCardProps> = ({ home }) => {
             <img
               src={home.image}
               alt={home.title}
-              className="w-[400px] h-[300px] sm:w-[300px] sm:h-[200px] md:w-[250px] md:h-[300px] cursor-pointer rounded-lg object-cover hover:border-4 hover:border-white"
+              className="w-[400px] h-[300px] sm:w-[300px] sm:h-[200px] md:w-[250px] md:h-[300px] cursor-pointer rounded-xl object-cover hover:border-4 hover:border-white"
             />
           )}
         </Link>

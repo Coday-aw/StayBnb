@@ -2,11 +2,8 @@
 
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar/Navbar";
-import { useEffect, useState, useCallback } from "react";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { Home } from "@/lib/types";
-import { toast, Toaster } from "react-hot-toast";
+import { useEffect, useState, useCallback, use } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
@@ -14,20 +11,48 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { offers } from "@/lib/data";
 import Button from "@/components/Button";
+import useFetchHome from "@/app/hooks/useFetchHome";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
+import useFetchBookedDates from "@/app/hooks/useFetchBookedDates";
+import Modal from "@/components/Modal";
+import { useUser } from "@clerk/nextjs";
+import CheckOut from "@/components/CheckOut";
 
 interface Params {
   id: string;
 }
 
 function DetailsPage({ params }: { params: Params }) {
-  const [home, setHome] = useState<Home | null>(null);
+  const home = useFetchHome(params.id);
   const [days, setDays] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [openIsModal, setOpenIsModal] = useState<boolean>(false);
   const [bookingDate, setBookingDate] = useState({
     startDate: new Date(),
     endDate: new Date(),
     key: "selection",
   });
+
+  const router = useRouter();
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  const openModal = () => setOpenIsModal(true);
+  const closeModal = () => setOpenIsModal(false);
+
+  const [disabledDates, setDisabledDates] = useState<Date[]>([]);
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      if (home?.id) {
+        const dates = await useFetchBookedDates(home.id);
+        setDisabledDates(dates);
+      }
+    };
+
+    fetchDates();
+  }, [home?.id]);
 
   const handleBookingDate = useCallback((ranges: RangeKeyDict) => {
     setBookingDate({
@@ -47,37 +72,35 @@ function DetailsPage({ params }: { params: Params }) {
     return totalDays;
   }, [bookingDate]);
 
-  const calculateTotalPrice = useCallback(() => {
-    const totalDays = calculateTotalDays();
+  useEffect(() => {
     const pricePerNight = home?.price ?? 0;
-    const totalPrice = totalDays * Number(pricePerNight);
-    setTotalPrice(totalPrice);
+    setTotalPrice(calculateTotalDays() * Number(pricePerNight));
   }, [calculateTotalDays, home?.price]);
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [bookingDate, home, calculateTotalPrice]);
-
-  const fetchHome = useCallback(async () => {
-    try {
-      const docRef = doc(db, "homes", params.id);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setHome(docSnap.data() as Home);
-      } else {
-        toast.error("Document not found");
-      }
-    } catch (error) {
-      toast.error("Error fetching home");
-      console.error("Error fetching home", error);
+  const bookHome = async () => {
+    if (!home || !home.id || !bookingDate.startDate || !bookingDate.endDate) {
+      toast.error("Invalid booking details");
+      return;
     }
-  }, [params.id]);
 
-  useEffect(() => {
-    fetchHome();
-  }, [params.id, fetchHome]);
+    try {
+      const newBooking = {
+        homeId: home.id,
+        startDate: bookingDate.startDate,
+        endDate: bookingDate.endDate,
+        totalPrice,
+        userId: isLoaded && isSignedIn && user ? user.id : null,
+      };
+
+      const docRef = await addDoc(collection(db, "bookings"), newBooking);
+      console.log("Document written with ID: ", docRef.id);
+      toast.success("Booking successful");
+      router.push("/bookings");
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      toast.error("Error adding document");
+    }
+  };
 
   return (
     <Container>
@@ -100,7 +123,7 @@ function DetailsPage({ params }: { params: Params }) {
           <div className="flex-1">
             <p>Hosted by {home?.creator}</p>
             <p className="text-slate-400">
-              {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
+              {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}
               Bathrooms
             </p>
             <hr className="mt-5" />
@@ -117,27 +140,29 @@ function DetailsPage({ params }: { params: Params }) {
                 </li>
               ))}
             </ul>
-            <div className=""></div>
           </div>
-
           <div className="flex flex-col justify-center items-center border p-2">
             <p>
-              {" "}
               <span className="text-3xl font-bold">${home?.price}</span> /night
             </p>
             <DateRange
               minDate={new Date()}
               ranges={[bookingDate]}
               onChange={handleBookingDate}
+              disabledDates={disabledDates}
             />
-            <Button width={20}>Reservera</Button>
-            <p>
-              {" "}
-              Nights: <span className="font-bold">{days}</span>
-            </p>
-            <p className="mt-5 text-2xl">
-              Total Price: <span className="font-bold">${totalPrice}</span>
-            </p>
+            <Button onClick={openModal} width={20}>
+              Book Home
+            </Button>
+            <Modal isOpen={openIsModal} closeModal={closeModal}>
+              <CheckOut
+                bookingDate={bookingDate}
+                days={days}
+                totalPrice={totalPrice}
+                closeModal={closeModal}
+                bookHome={bookHome}
+              />
+            </Modal>
           </div>
         </div>
       </div>

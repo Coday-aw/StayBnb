@@ -11,6 +11,7 @@ import { SignIn, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "../toggle-theme";
 import { FaSignInAlt } from "react-icons/fa";
 import Link from "next/link";
+import Button from "../Button";
 
 const UserMenu = () => {
   const { isSignedIn, isLoaded } = useUser();
@@ -45,7 +46,7 @@ const UserMenu = () => {
         </>
       ) : (
         <Link href="/sign-in">
-          <FaSignInAlt size={25} />
+          <Button>Sign In</Button>
         </Link>
       )}
     </div>
