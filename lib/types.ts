@@ -2,6 +2,7 @@
 export type Home = {
     id: string;
     creator: string;
+    host: string;
     title: string;
     description: string;
     price: string;

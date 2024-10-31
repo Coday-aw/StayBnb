@@ -11,7 +11,7 @@ function Button({ children, width, type, onClick }: ButtonProps) {
     <button
       onClick={onClick}
       type={type}
-      className="bg-[#FF385C] text-white rounded-lg p-2 font-bold"
+      className="bg-[#FF385C] text-white rounded-xl p-2 font-bold"
       style={{ width: `${width}rem` }}
     >
       {children}

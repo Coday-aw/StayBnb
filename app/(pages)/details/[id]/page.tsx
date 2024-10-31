@@ -11,14 +11,15 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { offers } from "@/lib/data";
 import Button from "@/components/Button";
-import useFetchHome from "@/app/hooks/useFetchHome";
+import useFetchHome from "@/app/hooks/useHome";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import useFetchBookedDates from "@/app/hooks/useFetchBookedDates";
+import useFetchBookedDates from "@/app/hooks/useBookedDates";
 import Modal from "@/components/Modal";
 import { useUser } from "@clerk/nextjs";
-import CheckOut from "@/components/CheckOut";
+import CheckOut from "@/components/checkOut/CheckOut";
+import { CiLocationOn } from "react-icons/ci";
 
 interface Params {
   id: string;
@@ -103,17 +104,19 @@ function DetailsPage({ params }: { params: Params }) {
   };
 
   return (
-    <Container>
-      <Navbar />
+    <>
       <Toaster position="top-center" />
-      <div className="flex flex-col gap-5 mt-5 lg:p-10">
+      <div className="flex flex-col gap-5 lg:p-10">
         <p className="text-3xl font-bold">
           {capitalizeFirstLetter(home?.title ?? "")}
         </p>
+        <div className="text-slate-400  flex items-center">
+          <CiLocationOn /> {home?.location.city}, {home?.location.country}
+        </div>
         <div className="sm:h-[400px] w-full mb-10">
           {typeof home?.image === "string" && home?.image && (
             <img
-              className="h-full w-full object-cover rounded-lg"
+              className="h-full w-full object-cover rounded-xl"
               src={home.image}
               alt={home.title}
             />
@@ -121,10 +124,10 @@ function DetailsPage({ params }: { params: Params }) {
         </div>
         <div className="flex gap-10 flex-col md:flex-row">
           <div className="flex-1">
-            <p>Hosted by {home?.creator}</p>
+            <p>Hosted by {home?.host}</p>
             <p className="text-slate-400">
-              {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}
-              Bathrooms
+              {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
+              Bathrooms{" "}
             </p>
             <hr className="mt-5" />
             <p className="py-5">{home?.description}</p>
@@ -143,9 +146,10 @@ function DetailsPage({ params }: { params: Params }) {
           </div>
           <div className="flex flex-col justify-center items-center border p-2">
             <p>
-              <span className="text-3xl font-bold">${home?.price}</span> /night
+              <span className="text-3xl font-bold">${home?.price}</span>/night
             </p>
             <DateRange
+              className="mb-2 rounded-xl"
               minDate={new Date()}
               ranges={[bookingDate]}
               onChange={handleBookingDate}
@@ -166,7 +170,7 @@ function DetailsPage({ params }: { params: Params }) {
           </div>
         </div>
       </div>
-    </Container>
+    </>
   );
 }
 

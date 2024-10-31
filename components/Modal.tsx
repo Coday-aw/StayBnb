@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, closeModal }) => {
       role="dialog"
     >
       <div
-        className="bg-white p-6 rounded-lg w-[100%] h-[100%] sm:w-[70%] sm:h-[70%] sm:max-w-[1200px] sm:max-h-[1200px] overflow-y-auto"
+        className="bg-white p-6 rounded-xl w-[100%] h-[100%] sm:w-[70%] sm:h-[70%] sm:max-w-[1200px] sm:max-h-[1200px] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div>{children}</div>

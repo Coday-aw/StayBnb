@@ -10,6 +10,16 @@ const Counter: React.FC<CounterProps> = ({ label, value, onChange }) => {
     onChange(count);
   }, [count, onChange]);
 
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
+
   return (
     <div className="flex justify-between m-6">
       <p className="font-bold">{label}</p>
@@ -18,7 +28,7 @@ const Counter: React.FC<CounterProps> = ({ label, value, onChange }) => {
           type="button"
           className="border px-4 rounded-lg border-gray-400 text-red-500 font-bold text-center"
           value={value}
-          onClick={() => setCount(count - 1)}
+          onClick={handleDecrement}
         >
           -
         </button>
@@ -27,7 +37,7 @@ const Counter: React.FC<CounterProps> = ({ label, value, onChange }) => {
           type="button"
           className="border px-4 rounded-lg border-gray-400 text-red-500 font-bold"
           value={value}
-          onClick={() => setCount(count + 1)}
+          onClick={handleIncrement}
         >
           +
         </button>

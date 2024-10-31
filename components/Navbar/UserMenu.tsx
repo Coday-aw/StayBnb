@@ -45,9 +45,14 @@ const UserMenu = () => {
           <UserButton />
         </>
       ) : (
-        <Link href="/sign-in">
-          <Button>Sign In</Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/sign-in">
+            <Button>Sign In</Button>
+          </Link>
+          <Link href="/sign-up">
+            <Button>Sign Up</Button>
+          </Link>
+        </div>
       )}
     </div>
   );

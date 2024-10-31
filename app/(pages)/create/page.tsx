@@ -3,11 +3,6 @@ import Navbar from "@/components/Navbar/Navbar";
 import Container from "@/components/Container";
 
 function CreatePage() {
-  return (
-    <Container>
-      <Navbar />
-      <Form />
-    </Container>
-  );
+  return <Form />;
 }
 export default CreatePage;

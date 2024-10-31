@@ -15,6 +15,7 @@ import { Home } from "@/lib/types";
 import { useUser } from "@clerk/nextjs";
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar/Navbar";
+import Heading from "@/components/Heading";
 
 function FavoritsPage() {
   const [favoritHomes, setFavoritsHomes] = useState<Home[]>([]);
@@ -61,10 +62,11 @@ function FavoritsPage() {
   }, [user, isLoaded]);
 
   return (
-    <Container>
+    <>
       <Toaster />
-      <Navbar />
+
       <div className="flex justify-center items-center flex-col gap-5 p-10">
+        <Heading>Your Favorits</Heading>
         <div className="flex gap-4 flex-wrap">
           {loading ? (
             <p>Loading...</p>
@@ -75,7 +77,7 @@ function FavoritsPage() {
           )}
         </div>
       </div>
-    </Container>
+    </>
   );
 }
 

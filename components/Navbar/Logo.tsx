@@ -3,7 +3,7 @@ import { PiWarehouseLight } from "react-icons/pi";
 
 const Logo = () => {
   return (
-    <Link href="/" className="hidden sm:flex justify-center items-center">
+    <Link href="/" className=" sm:flex justify-center items-center">
       <div className="text-[#FF385C]">
         <PiWarehouseLight size={40} />
       </div>

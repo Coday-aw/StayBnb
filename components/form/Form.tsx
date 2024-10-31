@@ -15,6 +15,7 @@ import ImageField from "./ImageField";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import { set } from "date-fns";
 
 const Form: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -28,6 +29,7 @@ const Form: React.FC = () => {
   const [guests, setGuests] = useState(0);
   const [rooms, setRooms] = useState(0);
   const [bathrooms, setBathrooms] = useState(0);
+  const [host, setHost] = useState("");
   const { user } = useUser();
   const router = useRouter();
 
@@ -42,6 +44,7 @@ const Form: React.FC = () => {
 
     const newHome = {
       title,
+      host,
       creator: user.id,
       description,
       price: parseInt(price),
@@ -56,6 +59,7 @@ const Form: React.FC = () => {
 
     if (
       !title ||
+      !host ||
       !description ||
       !price ||
       !image ||
@@ -89,6 +93,7 @@ const Form: React.FC = () => {
       }
 
       setTitle("");
+      setHost("");
       setDescription("");
       setPrice("");
       setImage(null);
@@ -109,10 +114,20 @@ const Form: React.FC = () => {
     <div className="flex justify-center mx-5 sm:mx-10">
       <form
         onSubmit={handleSubmit}
-        className="w-[800px] mt-10 flex flex-col gap-5 mb-20 mx-10 "
+        className="w-full max-w-2xl mt-10 flex flex-col gap-5 mb-20 mx-10"
       >
         <Heading> Please describe your home as best as you can</Heading>
         <Toaster position="top-center" />
+
+        <InputField
+          id="firstFullName"
+          label="Full Name"
+          type="text"
+          placeholder="Hosts full name"
+          value={host}
+          onChange={(e) => setHost(e.target.value)}
+        />
+
         <InputField
           id="title"
           label="Title"
@@ -121,6 +136,7 @@ const Form: React.FC = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+
         <TextareaField
           id="description"
           label="Description"
@@ -154,7 +170,7 @@ const Form: React.FC = () => {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
-        <div className="border rounded-lg border-black mb-10">
+        <div className="border rounded-lg mb-10">
           <Counter
             label="Guests"
             value={guests}
@@ -173,7 +189,7 @@ const Form: React.FC = () => {
         </div>
         <Heading>Where is your home located?</Heading>
 
-        <div className="flex gap-5">
+        <div className="flex flex-col sm:flex-row gap-5">
           <div className="flex-1">
             <InputField
               id="country"
@@ -198,9 +214,7 @@ const Form: React.FC = () => {
         </div>
         <Heading>What this place offers</Heading>
         <OffersField selectedOffers={offers} setSelectedOffers={setOffers} />
-        <Button type={"submit"} width={50}>
-          Create home
-        </Button>
+        <Button type={"submit"}>Create home</Button>
       </form>
     </div>
   );
