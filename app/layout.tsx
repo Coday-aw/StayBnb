@@ -3,10 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
-import Container from "@/components/Container";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { Warehouse } from "lucide-react";
 import { PiWarehouseLight } from "react-icons/pi";
 
 const geistSans = localFont({
@@ -47,9 +45,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="flex-grow">
-              <Container>{children}</Container>
-            </main>
+            <main className="flex-grow">{children}</main>
             <Footer />
           </ThemeProvider>
         </body>

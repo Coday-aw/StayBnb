@@ -1,8 +1,7 @@
 "use client";
 
 import Container from "@/components/Container";
-import Navbar from "@/components/Navbar/Navbar";
-import { useEffect, useState, useCallback, use } from "react";
+import { useEffect, useState, useCallback } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { RangeKeyDict } from "react-date-range";
@@ -104,7 +103,7 @@ function DetailsPage({ params }: { params: Params }) {
   };
 
   return (
-    <>
+    <Container>
       <Toaster position="top-center" />
       <div className="flex flex-col gap-5 lg:p-10">
         <p className="text-3xl font-bold">
@@ -170,7 +169,7 @@ function DetailsPage({ params }: { params: Params }) {
           </div>
         </div>
       </div>
-    </>
+    </Container>
   );
 }
 

@@ -1,12 +1,6 @@
-"use client";
-
 import Container from "../Container";
 import Logo from "./Logo";
-import Search from "./Search";
 import UserMenu from "./UserMenu";
-import { RxCross2 } from "react-icons/rx";
-import { useState, useRef, useEffect } from "react";
-import { useAuth } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -14,7 +8,6 @@ const Navbar = () => {
       <Container>
         <div className="flex justify-between">
           <Logo />
-          <Search />
           <UserMenu />
         </div>
       </Container>

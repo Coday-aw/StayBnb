@@ -5,16 +5,15 @@ import { toast } from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import HomeCard from "./HomeCard";
+import { Home } from "@/lib/types";
 
-const HomeListing = () => {
-  const { homes, loading, error } = useFetchHomes();
+interface HomeListingProps {
+  filteredHomes: Home[];
+  error: string | null;
+  loading: boolean;
+}
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error]);
-
+const HomeListing = ({ filteredHomes, error, loading }: HomeListingProps) => {
   return (
     <div className="flex justify-center items-center mt-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -30,7 +29,7 @@ const HomeListing = () => {
                 </div>
               </div>
             ))
-          : homes.map((home) => <HomeCard key={home.id} home={home} />)}
+          : filteredHomes.map((home) => <HomeCard key={home.id} home={home} />)}
       </div>
     </div>
   );

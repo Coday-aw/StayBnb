@@ -14,7 +14,6 @@ import { db } from "@/lib/firebase";
 import { Home } from "@/lib/types";
 import { useUser } from "@clerk/nextjs";
 import Container from "@/components/Container";
-import Navbar from "@/components/Navbar/Navbar";
 import Heading from "@/components/Heading";
 
 function FavoritsPage() {
@@ -62,22 +61,24 @@ function FavoritsPage() {
   }, [user, isLoaded]);
 
   return (
-    <>
+    <Container>
       <Toaster />
 
-      <div className="flex justify-center items-center flex-col gap-5 p-10">
-        <Heading>Your Favorits</Heading>
-        <div className="flex gap-4 flex-wrap">
-          {loading ? (
-            <p>Loading...</p>
-          ) : favoritHomes.length === 0 ? (
-            <p>No favorits homes found</p>
-          ) : (
-            favoritHomes.map((home) => <HomeCard key={home.id} home={home} />)
-          )}
+      {loading ? (
+        <p className="text-center">Loading...</p>
+      ) : favoritHomes.length === 0 ? (
+        <p className="text-center">No favorits homes found</p>
+      ) : (
+        <div className="flex justify-center items-center flex-col gap-5 p-10">
+          <Heading>Your Favorits</Heading>
+          <div className="flex gap-4 flex-wrap">
+            {favoritHomes.map((home) => (
+              <HomeCard key={home.id} home={home} />
+            ))}
+          </div>
         </div>
-      </div>
-    </>
+      )}
+    </Container>
   );
 }
 
