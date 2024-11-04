@@ -93,7 +93,6 @@ function DetailsPage({ params }: { params: Params }) {
       };
 
       const docRef = await addDoc(collection(db, "bookings"), newBooking);
-      console.log("Document written with ID: ", docRef.id);
       toast.success("Booking successful");
       router.push("/bookings");
     } catch (error) {

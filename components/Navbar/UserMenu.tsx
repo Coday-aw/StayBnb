@@ -38,7 +38,7 @@ const UserMenu = () => {
                 <Link href="/create">Host StayBnb</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/favorits">Saved Homes</Link>
+                <Link href="/favorits">Favorit Homes</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

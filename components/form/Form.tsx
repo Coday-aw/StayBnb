@@ -121,7 +121,7 @@ const Form: React.FC = () => {
 
         <InputField
           id="firstFullName"
-          label="Full Name"
+          label="Host Name"
           type="text"
           placeholder="Hosts full name"
           value={host}
@@ -212,7 +212,7 @@ const Form: React.FC = () => {
             />
           </div>
         </div>
-        <Heading>What this place offers</Heading>
+        <Heading>What amenities does your home offer?</Heading>
         <OffersField selectedOffers={offers} setSelectedOffers={setOffers} />
         <Button type={"submit"}>Create home</Button>
       </form>
