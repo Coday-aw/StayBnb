@@ -14,7 +14,6 @@ const fetchBookings = async (userId: string): Promise<Booking[]> => {
   try {
     const querySnapshot = await getDocs(q);
     const querySnapshotData = querySnapshot.docs.map((doc) => doc.data());
-    console.log(querySnapshotData);
 
     const homePromises = querySnapshotData.map(async (booking) => {
       const homeId = booking.homeId;
@@ -30,7 +29,6 @@ const fetchBookings = async (userId: string): Promise<Booking[]> => {
       } as Booking;
     });
     const bookings = await Promise.all(homePromises);
-    console.log(bookings);
 
     return bookings;
   } catch (error) {
@@ -45,16 +43,14 @@ const useBookings = (userId: string) => {
 
   useEffect(() => {
     const loadBookings = async () => {
-      const userBookings = await fetchBookings(userId);
-      setBookings(userBookings);
+      if (userId) {
+        const userBookings = await fetchBookings(userId);
+        setBookings(userBookings);
+      }
       setLoading(false);
     };
 
-    if (userId) {
-      loadBookings();
-    } else {
-      setLoading(false);
-    }
+    loadBookings();
   }, [userId]);
 
   return { bookings, loading };

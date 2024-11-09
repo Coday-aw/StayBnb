@@ -19,6 +19,8 @@ import Modal from "@/components/Modal";
 import { useUser } from "@clerk/nextjs";
 import CheckOut from "@/components/checkOut/CheckOut";
 import { CiLocationOn } from "react-icons/ci";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface Params {
   id: string;
@@ -170,7 +172,34 @@ function DetailsPage({ params }: { params: Params }) {
           </div>
         </div>
       ) : (
-        <p className="text-center text-red-500 font-bold text-2xl">404 error</p>
+        <div className="flex flex-col gap-5 lg:p-10">
+          <Skeleton height={40} width={300} />
+          <Skeleton height={20} width={200} />
+          <Skeleton height={400} width="100%" />
+          <div className="flex gap-10 flex-col md:flex-row">
+            <div className="flex-1">
+              <Skeleton height={20} width={150} />
+              <Skeleton height={20} width={100} />
+              <hr className="mt-5" />
+              <Skeleton height={100} width="100%" />
+              <hr />
+              <Skeleton height={30} width={200} />
+              <ul className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 md:grid-cols-2 gap-1">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <li className="flex gap-1" key={index}>
+                    <Skeleton height={20} width={20} />
+                    <Skeleton height={20} width={100} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col justify-center items-center border p-2">
+              <Skeleton height={40} width={100} />
+              <Skeleton height={300} width="100%" />
+              <Skeleton height={40} width={200} />
+            </div>
+          </div>
+        </div>
       )}
     </Container>
   );

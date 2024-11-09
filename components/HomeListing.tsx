@@ -1,6 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
-import { useFetchHomes } from "@/app/hooks/useAllHomes";
+import React from "react";
 import { toast } from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -17,7 +15,8 @@ const HomeListing = ({ filteredHomes, error, loading }: HomeListingProps) => {
   return (
     <div className="flex justify-center items-center mt-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {error && <p>{error}</p>}
+        {error && toast.error(error)}
+
         {loading
           ? Array.from({ length: 8 }).map((_, index) => (
               <div key={index}>

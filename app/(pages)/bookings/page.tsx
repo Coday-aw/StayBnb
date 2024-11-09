@@ -5,6 +5,8 @@ import HomeCard from "@/components/HomeCard";
 import useBookings from "@/app/hooks/useBookings";
 import Heading from "@/components/Heading";
 import Container from "@/components/Container";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function BookingsPage() {
   const { user } = useUser();
@@ -15,9 +17,26 @@ function BookingsPage() {
     <Container>
       <div className="p-5">
         {loading ? (
-          <p className="text-center text-xl">Loading...</p>
+          <div>
+            <Skeleton height={40} width={200} className="mb-5" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  className="border p-4 shadow-lg rounded-2xl flex flex-col justify-between"
+                  key={index}
+                >
+                  <Skeleton height={200} className="mb-5" />
+                  <Skeleton height={20} width={150} className="mb-2" />
+                  <Skeleton height={20} width={100} className="mb-1" />
+                  <Skeleton height={20} width={100} className="mb-1" />
+                  <Skeleton height={20} width={100} className="mb-1" />
+                  <Skeleton height={20} width={100} className="mb-1" />
+                </div>
+              ))}
+            </div>
+          </div>
         ) : bookings.length === 0 ? (
-          <p className="text-center text-xl">your have no bookings</p>
+          <p className="text-center text-xl">You have no bookings</p>
         ) : (
           <div>
             <Heading>Your Bookings</Heading>
