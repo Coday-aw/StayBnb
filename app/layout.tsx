@@ -5,7 +5,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { PiWarehouseLight } from "react-icons/pi";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,10 +20,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "StayBnb",
   description: "Find and book unique accommodations on StayBnb",
-};
-
-const icons = {
-  Warehouse: <PiWarehouseLight size={40} />,
+  icons: { icon: "/stayBnb.png" },
 };
 
 export default function RootLayout({

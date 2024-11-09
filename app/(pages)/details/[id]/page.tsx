@@ -104,70 +104,74 @@ function DetailsPage({ params }: { params: Params }) {
   return (
     <Container>
       <Toaster position="top-center" />
-      <div className="flex flex-col gap-5 lg:p-10">
-        <p className="text-3xl font-bold">
-          {capitalizeFirstLetter(home?.title ?? "")}
-        </p>
-        <div className="text-slate-400  flex items-center">
-          <CiLocationOn /> {home?.location.city}, {home?.location.country}
-        </div>
-        <div className="sm:h-[400px] w-full mb-10">
-          {typeof home?.image === "string" && home?.image && (
-            <img
-              className="h-full w-full object-cover rounded-xl"
-              src={home.image}
-              alt={home.title}
-            />
-          )}
-        </div>
-        <div className="flex gap-10 flex-col md:flex-row">
-          <div className="flex-1">
-            <p>Hosted by {home?.host}</p>
-            <p className="text-slate-400">
-              {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
-              Bathrooms{" "}
-            </p>
-            <hr className="mt-5" />
-            <p className="py-5">{home?.description}</p>
-            <hr />
-            <p className="sm:text-2xl lg:text-3xl font-bold mb-5 mt-10">
-              What this place offers
-            </p>
-            <ul className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 md:grid-cols-2 gap-1">
-              {home?.offers.map((offer) => (
-                <li className="flex gap-1" key={offer}>
-                  {offers[offer]}
-                  <p>{offer}</p>
-                </li>
-              ))}
-            </ul>
+      {home ? (
+        <div className="flex flex-col gap-5 lg:p-10">
+          <p className="text-3xl font-bold">
+            {capitalizeFirstLetter(home?.title ?? "")}
+          </p>
+          <div className="text-slate-400  flex items-center">
+            <CiLocationOn /> {home?.location.city}, {home?.location.country}
           </div>
-          <div className="flex flex-col justify-center items-center border p-2">
-            <p>
-              <span className="text-3xl font-bold">${home?.price}</span>/night
-            </p>
-            <DateRange
-              className="mb-2 rounded-xl"
-              minDate={new Date()}
-              ranges={[bookingDate]}
-              onChange={handleBookingDate}
-              disabledDates={disabledDates}
-            />
-            <Button onClick={openModal} width={20}>
-              Book Home
-            </Button>
-            <Modal isOpen={openIsModal} closeModal={closeModal}>
-              <CheckOut
-                bookingDate={bookingDate}
-                days={days}
-                totalPrice={totalPrice}
-                closeModal={closeModal}
-                bookHome={bookHome}
+          <div className="sm:h-[400px] w-full mb-10">
+            {typeof home?.image === "string" && home?.image && (
+              <img
+                className="h-full w-full object-cover rounded-xl"
+                src={home.image}
+                alt={home.title}
               />
-            </Modal>
+            )}
+          </div>
+          <div className="flex gap-10 flex-col md:flex-row">
+            <div className="flex-1">
+              <p>Hosted by {home?.host}</p>
+              <p className="text-slate-400">
+                {home?.guests} Guests, {home?.rooms} Rooms, {home?.bathrooms}{" "}
+                Bathrooms{" "}
+              </p>
+              <hr className="mt-5" />
+              <p className="py-5">{home?.description}</p>
+              <hr />
+              <p className="sm:text-2xl lg:text-3xl font-bold mb-5 mt-10">
+                What this place offers
+              </p>
+              <ul className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 md:grid-cols-2 gap-1">
+                {home?.offers.map((offer) => (
+                  <li className="flex gap-1" key={offer}>
+                    {offers[offer]}
+                    <p>{offer}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col justify-center items-center border p-2">
+              <p>
+                <span className="text-3xl font-bold">${home?.price}</span>/night
+              </p>
+              <DateRange
+                className="mb-2 rounded-xl"
+                minDate={new Date()}
+                ranges={[bookingDate]}
+                onChange={handleBookingDate}
+                disabledDates={disabledDates}
+              />
+              <Button onClick={openModal} width={20}>
+                Book Home
+              </Button>
+              <Modal isOpen={openIsModal} closeModal={closeModal}>
+                <CheckOut
+                  bookingDate={bookingDate}
+                  days={days}
+                  totalPrice={totalPrice}
+                  closeModal={closeModal}
+                  bookHome={bookHome}
+                />
+              </Modal>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <p className="text-center text-red-500 font-bold text-2xl">404 error</p>
+      )}
     </Container>
   );
 }
