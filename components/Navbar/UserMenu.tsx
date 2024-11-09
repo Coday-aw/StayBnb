@@ -16,10 +16,6 @@ const UserMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLinkClick = () => {
-    setIsOpen(false);
-  };
-
   const handleClickOutside = (e: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
       setIsOpen(false);
@@ -52,21 +48,33 @@ const UserMenu = () => {
           </button>
           {isOpen && (
             <>
+              <div className=" inset-0 absolute bg-black opacity-60 sm:hidden z-50"></div>
               <div
                 ref={menuRef}
-                className="absolute top-16 right-0 sm:right-40 bg-white text-black p-2 rounded-xl border shadow-md z-50 w-full h-full sm:w-auto sm:h-auto"
+                className="absolute top-0 sm:top-16 right-0 sm:right-40 bg-white text-black p-2 rounded-xl border shadow-md z-50 w-[70%] h-full sm:w-auto sm:h-auto"
               >
-                <ul onClick={handleLinkClick} className="py-2 mb-2">
-                  <li className="hover:bg-slate-100 cursor-pointer p-2">
-                    <Link href="/bookings">Bookings</Link>
-                  </li>
-                  <li className="hover:bg-slate-100 cursor-pointer p-2">
-                    <Link href="/create">Host StayBnb</Link>
-                  </li>
-                  <li className="hover:bg-slate-100 cursor-pointer p-2">
-                    <Link href="/favorits">Favorit Homes</Link>
-                  </li>
-                </ul>
+                <div>
+                  <button className="sm:hidden" onClick={toggleMenu}>
+                    <RxCross2 size={30} />
+                  </button>
+                  <ul>
+                    <li className="hover:bg-slate-100 cursor-pointer p-2 ">
+                      <Link href="/bookings" onClick={() => setIsOpen(false)}>
+                        Bookings
+                      </Link>
+                    </li>
+                    <li className="hover:bg-slate-100 cursor-pointer p-2">
+                      <Link href="/create" onClick={() => setIsOpen(false)}>
+                        Host StayBnb
+                      </Link>
+                    </li>
+                    <li className="hover:bg-slate-100 cursor-pointer p-2">
+                      <Link href="/favorits" onClick={() => setIsOpen(false)}>
+                        Favorit Homes
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </>
           )}
