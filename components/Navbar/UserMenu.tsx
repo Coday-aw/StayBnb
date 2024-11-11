@@ -73,6 +73,11 @@ const UserMenu = () => {
                         Favorit Homes
                       </Link>
                     </li>
+                    <li className="hover:bg-slate-100 cursor-pointer p-2">
+                      <Link href="/about" onClick={() => setIsOpen(false)}>
+                        About us
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -82,14 +87,9 @@ const UserMenu = () => {
           <UserButton />
         </>
       ) : (
-        <div className="flex gap-2">
-          <Link href="/sign-in">
-            <Button>Sign In</Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button>Sign Up</Button>
-          </Link>
-        </div>
+        <Link href="/sign-in">
+          <Button type="button">Sign in</Button>
+        </Link>
       )}
     </div>
   );

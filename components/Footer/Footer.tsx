@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   FaFacebookSquare,
@@ -14,7 +15,7 @@ const Footer: React.FC = () => {
             &copy; 2024 StayBnb. All rights reserved
           </p>
           <span className="hidden md:inline">•</span>
-          <p className="cursor-pointer">Terms</p>
+          <Link href="/about">About</Link>
           <span className="hidden md:inline">•</span>
           <p className="cursor-pointer">Privacy</p>
           <span className="hidden md:inline">•</span>

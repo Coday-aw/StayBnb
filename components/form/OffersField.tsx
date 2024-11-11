@@ -17,7 +17,7 @@ const OffersField: React.FC<OffersFieldProps> = ({
   };
 
   return (
-    <div className="border p-5 rounded-lg grid sm:grid-cols-2 md:grid-cols-3  gap-5 h-auto">
+    <div className="border p-5 rounded-lg grid grid-cols-2 sm:grid-cols-3 gap-5 h-auto">
       {Object.keys(offers).map((offerId) => (
         <div key={offerId} className="flex justify-center items-center gap-1">
           <label

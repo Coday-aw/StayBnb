@@ -110,10 +110,10 @@ const Form: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center mx-5 sm:mx-10">
+    <div className="flex justify-center  ">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl mt-10 flex flex-col gap-5 mb-20 mx-10"
+        className="w-full max-w-2xl mt-10 flex flex-col gap-5 mb-20 "
       >
         <Heading> Please describe your home as best as you can</Heading>
         <Toaster position="top-center" />
