@@ -27,7 +27,7 @@ export const offers: { [key: string]: string } = {
     "Kitchen": "🍽️",
     "Free parking": "🅿️",
     "Pool": "🏊",
-    "Air conditioning": "❄️",
+    "AC": "❄️",
     "Pets allowed": "🐾",
     "Hot tub": "🛁",
     "Balcony": "🌅",

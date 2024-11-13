@@ -84,6 +84,10 @@ function DetailsPage({ params }: { params: Params }) {
       toast.error("Invalid booking details");
       return;
     }
+    if (totalPrice <= 0) {
+      toast.error("You must select a valid date range");
+      return;
+    }
 
     try {
       const newBooking = {
@@ -93,8 +97,7 @@ function DetailsPage({ params }: { params: Params }) {
         totalPrice,
         userId: isLoaded && isSignedIn && user ? user.id : null,
       };
-
-      const docRef = await addDoc(collection(db, "bookings"), newBooking);
+      await addDoc(collection(db, "bookings"), newBooking);
       toast.success("Booking successful");
       router.push("/bookings");
     } catch (error) {

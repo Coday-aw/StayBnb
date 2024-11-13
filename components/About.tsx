@@ -2,7 +2,7 @@ import Heading from "./Heading";
 
 const About = () => {
   return (
-    <div className="flex justify-center items-center mt-36">
+    <div className="flex justify-center items-center mt-36 p-3">
       <div className="max-w-[600px] flex justify-center items-center flex-col border p-5 shadow-lg rounded-xl ">
         <Heading>About StayBnb</Heading>
         <p className="text-xl text-center font-medium">
