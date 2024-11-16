@@ -92,7 +92,12 @@ const HomeCard: React.FC<HomeCardProps> = ({ home }) => {
             />
           )}
         </Link>
-        <button onClick={handleLike} className="absolute top-2 right-2">
+        <button
+          type="button"
+          name="like-button"
+          onClick={handleLike}
+          className="absolute top-2 right-2"
+        >
           <FaHeart color={isLiked ? "red" : "white"} />
         </button>
       </div>
@@ -101,7 +106,7 @@ const HomeCard: React.FC<HomeCardProps> = ({ home }) => {
         <p className="text-m font-semibold mt-2">
           {capitalizeFirstLetter(city)}, {capitalizeFirstLetter(country)}
         </p>
-        <p className="text-m text-gray-400">{home.category}</p>
+        <p className="text-m text-gray-400 font-bold">{home.category}</p>
         <p className="text-m">
           <span className="font-bold">${home.price}</span> night
         </p>

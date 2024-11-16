@@ -35,7 +35,7 @@ const UserMenu = () => {
     <div className="flex justify-center items-center gap-2">
       {isSignedIn ? (
         <>
-          <button onClick={toggleMenu}>
+          <button type="button" name="menu-button" onClick={toggleMenu}>
             {isOpen ? (
               <div>
                 <RxCross2 size={30} />

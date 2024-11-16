@@ -7,7 +7,9 @@ const Logo = () => {
       <div className="text-[#FF385C]">
         <PiWarehouseLight size={40} />
       </div>
-      <p className="hidden lg:block font-bold text-[#FF385C]">StayBnb</p>
+      <p className="hidden lg:block text-2xl font-bold text-[#FF385C]">
+        StayBnb
+      </p>
     </Link>
   );
 };
