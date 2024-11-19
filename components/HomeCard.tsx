@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 interface HomeCardProps {
   home: Home;
@@ -88,13 +89,13 @@ const HomeCard: React.FC<HomeCardProps> = ({ home }) => {
             <img
               src={home.image}
               alt={home.title}
-              className="w-[400px] h-[300px] sm:w-[300px] sm:h-[200px] md:w-[250px] md:h-[300px] cursor-pointer rounded-xl object-cover hover:border-4 hover:border-white"
+              className=" sm:w-[300px] sm:h-[200px] md:w-[250px] md:h-[300px] cursor-pointer rounded-xl object-cover hover:border-4 hover:border-white"
             />
           )}
         </Link>
         <button
           type="button"
-          name="like-button"
+          aria-label="like-button"
           onClick={handleLike}
           className="absolute top-2 right-2"
         >
@@ -106,7 +107,7 @@ const HomeCard: React.FC<HomeCardProps> = ({ home }) => {
         <p className="text-m font-semibold mt-2">
           {capitalizeFirstLetter(city)}, {capitalizeFirstLetter(country)}
         </p>
-        <p className="text-m text-gray-400 font-bold">{home.category}</p>
+        <p className="text-m text-gray-500 font-bold">{home.category}</p>
         <p className="text-m">
           <span className="font-bold">${home.price}</span> night
         </p>

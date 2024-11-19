@@ -20,7 +20,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "StayBnb",
   description: "Find and book unique accommodations on StayBnb",
-  icons: { icon: "/stayBnb.png" },
+  icons: { icon: "/stayBbn.png" },
 };
 
 export default function RootLayout({
